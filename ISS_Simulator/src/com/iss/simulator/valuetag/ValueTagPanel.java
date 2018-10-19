@@ -77,7 +77,7 @@ public class ValueTagPanel extends JPanel
         searchBtn.addActionListener(action);
         top1.add(searchBtn);
         
-        JButton simulatorBtn = new JButton("SimulatorList");
+        JButton simulatorBtn = new JButton("SimulatorSetting");
         simulatorBtn.addActionListener(action);
         top2.add(simulatorBtn);
         
@@ -267,10 +267,9 @@ public class ValueTagPanel extends JPanel
         	
         	JButton obj = (JButton) e.getSource();
             String command = obj.getText();
-            System.out.println(command);
             
-            if ("SimulatorList".equals(command)){
-            	SimulatorListDialog spenel = new SimulatorListDialog(frame, "SimulatorList Dialog");
+            if ("SimulatorSetting".equals(command)){
+            	SimulatorSetting spenel = new SimulatorSetting(frame, "SimulatorList Dialog");
                 spenel.createDialog();
             } else if("Add".equals(command)) {
             	

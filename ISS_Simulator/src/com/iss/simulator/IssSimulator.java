@@ -6,6 +6,7 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Menu;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -16,6 +17,8 @@ import java.util.Timer;
 
 import javax.swing.AbstractAction;
 import javax.swing.AbstractButton;
+import javax.swing.ButtonGroup;
+import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -72,26 +75,6 @@ public class IssSimulator extends JPanel {
 		frame.setTitle("ISS Simulator v0.1");
 		setLayout(new BorderLayout());
 		
-		JMenuBar menuBar = new JMenuBar();
-		JMenu menu = new JMenu("File");
-		JMenuItem save = new JMenuItem("save");
-		JMenuItem load = new JMenuItem("load");
-		JMenuItem exit = new JMenuItem("exit");
-		exit.addActionListener(new AbstractAction() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
-				frame.dispose();
-				frame.setVisible(false);
-				timer.cancel();
-			}
-		});
-		
-		menu.add(save); menu.add(load); menu.add(exit);
-		menuBar.add(menu);
-		
-		//frame.setJMenuBar(menuBar);
-
 		JPanel settingPanel = new JPanel();
 		settingPanel.setLayout(new FlowLayout());
 

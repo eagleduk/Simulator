@@ -109,7 +109,7 @@ public class ImportValueTagDialog extends JDialog {
         setSize(600, 400);
 		setLocation(200, 50);
         setVisible(true);
-		setResizable(true);
+		setResizable(false);
 		return this;
 	}
 

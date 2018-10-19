@@ -46,7 +46,6 @@ public class ImportWayPointDialog extends JDialog {
 				JFileChooser chooser = (JFileChooser) e.getSource();
 		        if (JFileChooser.APPROVE_SELECTION.equals(e.getActionCommand())) {
 		        	File file = chooser.getSelectedFile();
-		        	System.out.println(file.isFile());
 		        	
 		        	try {
 		        	
@@ -111,7 +110,7 @@ public class ImportWayPointDialog extends JDialog {
         setSize(600, 400);
 		setLocation(200, 50);
         setVisible(true);
-		setResizable(true);
+		setResizable(false);
 		return this;
 	}
 
