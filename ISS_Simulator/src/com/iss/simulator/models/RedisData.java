@@ -9,10 +9,10 @@ public class RedisData {
 	double MinValue;
 	double MaxValue;
 	String Value_String;
-	boolean Value_Boolean;
+	String Value_Boolean;
 	String RedisType;
 	
-	public RedisData(String RedisKey, double MaxValue, double MinValue, String Value_String, boolean Value_Boolean, String RedisType) {
+	public RedisData(String RedisKey, double MaxValue, double MinValue, String Value_String, String Value_Boolean, String RedisType) {
 		this.RedisKey = RedisKey;
 		this.MaxValue = MaxValue;
 		this.MinValue = MinValue;

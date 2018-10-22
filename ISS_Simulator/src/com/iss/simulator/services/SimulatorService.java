@@ -133,7 +133,7 @@ public class SimulatorService extends TimerTask {
 			double MinValue = Double.parseDouble(vt.getMinValue());
 			String RedisType = vt.getRedisType();
 			String Value_String = vt.getString_Value();
-			boolean Value_Boolean = vt.getBoolean_Value();
+			String Value_Boolean = vt.getBoolean_Value();
 			
 			RedisData data = new RedisData(RedisKey, MaxValue, MinValue, Value_String, Value_Boolean, RedisType);
 

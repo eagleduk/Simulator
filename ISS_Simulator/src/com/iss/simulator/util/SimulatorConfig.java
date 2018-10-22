@@ -2,6 +2,8 @@ package com.iss.simulator.util;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -76,5 +78,18 @@ public class SimulatorConfig extends Properties {
 		for(int i=0; i<count; i++) {
 			list.add(engine + (i+1));
 		}
+	}
+	
+	public void setProperty() throws FileNotFoundException, IOException {
+		File file = new File("Simulator.properties");
+		pro.setProperty("MainEngine.Count", "1");
+		pro.store(new FileOutputStream(file), null);
+	}
+	
+	
+	public static void main(String[] args) throws FileNotFoundException, IOException {
+		// TODO Auto-generated method stub
+		SimulatorConfig sc = new SimulatorConfig();
+		sc.setProperty();
 	}
 }

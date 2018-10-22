@@ -145,8 +145,12 @@ public class WayPointPanel extends JPanel {
 			} else if ("Delete".equals(command)) {
 				if(m_table.getSelectedRowCount() == 0) return;
 				
+				int[] rows = m_table.getSelectedRows();
 				WayPointModel m_data = (WayPointModel) m_table.getModel();
-				m_data.removeRow(m_table.getSelectedRow());
+				for(int i=(rows.length-1); i>=0; i--) {
+					System.out.println(rows[i]);
+					m_data.removeRow(m_table.getSelectedRow());
+				}
 				m_table.setModel(m_data);
 				m_table.updateUI();
 				

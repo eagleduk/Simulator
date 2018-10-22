@@ -128,7 +128,7 @@ public class ValueTagModel extends AbstractTableModel {
 		
 		try {
 			row.setValue(nCol, aValue);
-			fireTableCellUpdated(nRow, nCol);
+			//fireTableCellUpdated(nRow, nCol);
 		} catch(Exception e) {
 			e.printStackTrace();
 		}

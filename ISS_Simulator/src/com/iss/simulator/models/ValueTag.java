@@ -8,7 +8,7 @@ public class ValueTag {
 	String minValue;
 	String maxValue;
 	String String_Value;
-	Boolean Boolean_Value;
+	String Boolean_Value;
 	
 	public String getRedisKey() {
 		return redisKey;
@@ -46,10 +46,10 @@ public class ValueTag {
 	public void setString_Value(String string_Value) {
 		String_Value = string_Value;
 	}
-	public Boolean getBoolean_Value() {
+	public String getBoolean_Value() {
 		return Boolean_Value;
 	}
-	public void setBoolean_Value(Boolean boolean_Value) {
+	public void setBoolean_Value(String boolean_Value) {
 		Boolean_Value = boolean_Value;
 	}
 	
@@ -64,11 +64,11 @@ public class ValueTag {
 		} else if("MaxValue".equals(name)) {
 			if(value instanceof String) setMaxValue((String) value);
 			else if(value instanceof Double) setMaxValue(String.valueOf((double)value));
-		} else if("String_Value".equals(name) || "StringValue".equals(name)) {
+		} else if("String_Value".equals(name) || "StringValue".equals(name) || "Value_String".equals(name)) {
 			setString_Value((String) value);
-		} else if("Boolean_Value".equals(name) || "BooleanValue".equals(name)) {
-			if(value instanceof String) setBoolean_Value(Boolean.valueOf((String)value));
-			else setBoolean_Value((boolean)value);
+		} else if("Boolean_Value".equals(name) || "BooleanValue".equals(name) || "Value_Boolean".equals(name)) {
+			if(value instanceof Boolean) setBoolean_Value(Boolean.toString((boolean)value));
+			setBoolean_Value((String)value);
 		} else if("RedisType".equals(name)) {
 			setRedisType(((String) value).toUpperCase());
 		}
@@ -93,7 +93,7 @@ public class ValueTag {
 		else if(nCol ==4) name="MaxValue";
 		else if(nCol ==5) name="String_Value";
 		else if(nCol==6) name ="Boolean_Value";
-		else if(nCol==2)name = "RedisType";
+		else if(nCol==2) name = "RedisType";
 		
 		return getValue(name);
 	}
@@ -107,14 +107,13 @@ public class ValueTag {
 			return getMinValue();
 		} else if("MaxValue".equals(name)) {
 			return getMaxValue();
-		} else if("String_Value".equals(name) || "StringValue".equals(name)) {
+		} else if("String_Value".equals(name) || "StringValue".equals(name) || "Value_String".equals(name)) {
 			return getString_Value();
-		} else if("Boolean_Value".equals(name) || "BooleanValue".equals(name)) {
+		} else if("Boolean_Value".equals(name) || "BooleanValue".equals(name) || "Value_Boolean".equals(name)) {
 			return getBoolean_Value();
 		} else if("RedisType".equals(name)) {
 			return getRedisType();
 		}
-		return "null";
+		return "";
 	}
-
 }

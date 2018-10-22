@@ -62,8 +62,6 @@ public class IssSimulator extends JPanel {
 				}
 			});
 			
-			
-			
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}

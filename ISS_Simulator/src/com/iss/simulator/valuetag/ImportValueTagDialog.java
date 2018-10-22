@@ -82,6 +82,7 @@ public class ImportValueTagDialog extends JDialog {
 									} else if(cellType == Cell.CELL_TYPE_BOOLEAN) {
 										cellValue = cell.getBooleanCellValue();
 									}
+									
 									vt.setValue(cellName, cellValue);
 								}
 								

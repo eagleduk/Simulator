@@ -31,6 +31,7 @@ import javax.swing.table.TableColumn;
 
 import com.iss.simulator.models.ValueTag;
 import com.iss.simulator.models.ValueTagModel;
+import com.iss.simulator.models.WayPointModel;
 import com.iss.simulator.util.SimulatorConfig;
 import com.iss.simulator.util.TextNumberFormatter;
 
@@ -305,7 +306,7 @@ public class ValueTagPanel extends JPanel {
             	} else if("STRING".equals(redisType)) {
             		vt.setValue(StringValueT.getName(), StringValueT.getText());
             	} else if("BOOLEAN".equals(redisType)) {
-            		vt.setValue(BooleanValueT.getName(), BooleanValueT.isSelected());
+            		vt.setValue(BooleanValueT.getName(), Boolean.toString(BooleanValueT.isSelected()));
             	}
             	
             	addData(vt);
@@ -313,9 +314,12 @@ public class ValueTagPanel extends JPanel {
             } else if("Delete".equals(command)) {
             	
             	if(table.getSelectedRowCount() == 0) return;
-				
-            	ValueTagModel m_data = (ValueTagModel) table.getModel();
-				m_data.removeRow(table.getSelectedRow());
+            	
+            	int[] rows = table.getSelectedRows();
+				WayPointModel m_data = (WayPointModel) table.getModel();
+				for(int i=(rows.length-1); i>=0; i--) {
+					m_data.removeRow(table.getSelectedRow());
+				}
 				table.setModel(m_data);
 				table.updateUI();
 				
@@ -326,11 +330,10 @@ public class ValueTagPanel extends JPanel {
             	ImportValueTagDialog spenel = new ImportValueTagDialog(frame, "Import Value & Tag");
 				spenel.setWayPointPanel(valuetagPanel);
 				spenel.createDialog();
-            } else if("SimulatorList Import".equals(command)) {
-            	//SimulatorListDialog의 import버튼
-            	
             } else if("Export".equals(command)) {
-            	
+            	ExportValueTagPane spenel = new ExportValueTagPane(frame, "Export");
+            	spenel.setTable(table);
+            	spenel.createDialog();
             }
         }
     }

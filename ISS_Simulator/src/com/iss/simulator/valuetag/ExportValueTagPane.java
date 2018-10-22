@@ -1,4 +1,4 @@
-package com.iss.simulator.waypoint;
+package com.iss.simulator.valuetag;
 
 import java.awt.Component;
 import java.awt.Frame;
@@ -16,23 +16,23 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.streaming.SXSSFSheet;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 
-import com.iss.simulator.models.WayPoint;
-import com.iss.simulator.models.WayPointModel;
+import com.iss.simulator.models.ValueTag;
+import com.iss.simulator.models.ValueTagModel;
 
-public class ExportWayPointDialog extends JOptionPane {
-	
-	final String[] WayPointHeaders = {"WayPointNo", "Latitude", "Longitude", "LeadTime(s)", "Heading", "FwdDraft", "AftDraft"};
+public class ExportValueTagPane extends JOptionPane {
+
+	final String[] ValueTagHeaders = {"RedisKey", "Description", "RedisType", "MinValue", "MaxValue", "Value_String", "Value_Boolean"};
 	
 	Component com;
-	JTable m_table;
+	JTable table;
 	
-	public ExportWayPointDialog(Frame frame, String name) {
+	public ExportValueTagPane(Frame frame, String name) {
 		super();
 		this.com = frame;
 	}
 	
 	public void setTable(JTable table) {
-		this.m_table = table;
+		this.table = table;
 	}
 	
 	public JOptionPane createDialog() {
@@ -40,27 +40,26 @@ public class ExportWayPointDialog extends JOptionPane {
 		FileOutputStream fos = null;
 		
 		try {
-		
-			WayPointModel model = (WayPointModel)m_table.getModel();
-	
-			String filename = new Date().getTime() + "_WayPoint.xlsx";
+			
+			ValueTagModel model = (ValueTagModel)table.getModel();
+			
+			String filename = new Date().getTime() + "_ValueTag.xlsx";
 			File file = new File(filename);
 	        
 			Workbook workbook = new SXSSFWorkbook();
 			SXSSFSheet sheet = (SXSSFSheet) workbook.createSheet();
 			
 			Row row = sheet.createRow(0);
-			for (int columns=0; columns<WayPointHeaders.length; columns++) {
-				row.createCell(columns).setCellValue(WayPointHeaders[columns]);
+			for (int columns=0; columns<ValueTagHeaders.length; columns++) {
+				row.createCell(columns).setCellValue(ValueTagHeaders[columns]);
 			}
-			
 			
 			for(int rows=0; rows<model.getRowCount(); rows++) {
 				row = sheet.createRow(rows+1);
-				WayPoint wp = model.getData(rows);
-				for(int columns=0; columns<WayPointHeaders.length; columns++) {
+				ValueTag vt = model.getData(rows);
+				for(int columns=0; columns<ValueTagHeaders.length; columns++) {
 					Cell cell = row.createCell(columns);
-					Object oo = wp.getValue(WayPointHeaders[columns]);
+					Object oo = vt.getValue(ValueTagHeaders[columns]);
 					if(oo!=null) {
 						if (oo instanceof String) {
 							cell.setCellValue((String) oo);
@@ -71,6 +70,8 @@ public class ExportWayPointDialog extends JOptionPane {
 						} else if(oo instanceof Integer) {
 							cell.setCellValue((int) oo);
 						}
+					} else {
+						cell.setCellValue("");
 					}
 				}
 			}
@@ -91,14 +92,9 @@ public class ExportWayPointDialog extends JOptionPane {
 					e.printStackTrace();
 				}
 		}
+		
+		
+		
 		return this;
-	}
-
-	public String convertLeadTime(double leadTime) {
-		
-		int hour = (int)leadTime / 3600;
-		int min = (int)(leadTime % 3600) / 60;
-		
-		return hour + "h " + (min < 10 ? "0"+min:min) + "m";
 	}
 }

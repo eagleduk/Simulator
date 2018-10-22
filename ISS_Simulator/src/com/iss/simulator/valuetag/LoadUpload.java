@@ -151,7 +151,7 @@ class LoadUpload extends JDialog implements  ActionListener {
         if("Done".equals(command)) {
         	close();
         } else if("Upload".equals(command)) {
-        	FileUploadDialog dialog = new FileUploadDialog(this, "fe");
+        	FileUploadDialog dialog = new FileUploadDialog(this, "File Upload");
         	dialog.setEngine(btnName);
         	dialog.createDialog();
         } else if("Delete".equals(command)) {
