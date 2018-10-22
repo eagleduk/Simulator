@@ -7,7 +7,10 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.AbstractAction;
 import javax.swing.BorderFactory;
@@ -28,10 +31,13 @@ import javax.swing.table.TableColumn;
 
 import com.iss.simulator.models.ValueTag;
 import com.iss.simulator.models.ValueTagModel;
+import com.iss.simulator.util.SimulatorConfig;
 import com.iss.simulator.util.TextNumberFormatter;
 
-public class ValueTagPanel extends JPanel
-{
+public class ValueTagPanel extends JPanel {
+	
+	SimulatorConfig sc;
+	
 	JFrame frame;
 	
 	ValueTagPanel valuetagPanel;
@@ -50,8 +56,7 @@ public class ValueTagPanel extends JPanel
 	
 	ButtonAction action = new ButtonAction();
 	
-    public ValueTagPanel(JFrame frame)
-    {
+    public ValueTagPanel(JFrame frame) {
     	this.frame = frame;
     	valuetagPanel = this;
         setLayout(new BorderLayout(10,10));
@@ -88,6 +93,7 @@ public class ValueTagPanel extends JPanel
         table.setModel(m_data);
         table.setRowHeight(30);
         table.setName("ValueTag");
+        table.setAutoCreateRowSorter(true);
         
         for(int i = 0 ; i <ValueTagModel.m_columns.length; i++) {
         	DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
@@ -261,6 +267,17 @@ public class ValueTagPanel extends JPanel
 		table.setModel(m_data);
 		table.updateUI();
 	}
+	
+	public void changeData(Map<String, ValueTag> map) {
+		ValueTagModel m_data = (ValueTagModel) table.getModel();
+		m_data.changeValue(map);
+		table.setModel(m_data);
+		table.updateUI();
+	}
+	
+	public void setConfig(SimulatorConfig sc) {
+		this.sc = sc;
+	}
     
     class ButtonAction implements ActionListener{
         public void actionPerformed(ActionEvent e){
@@ -270,6 +287,8 @@ public class ValueTagPanel extends JPanel
             
             if ("SimulatorSetting".equals(command)){
             	SimulatorSetting spenel = new SimulatorSetting(frame, "SimulatorList Dialog");
+            	spenel.setWayPointPanel(valuetagPanel);
+            	spenel.setConfig(sc);
                 spenel.createDialog();
             } else if("Add".equals(command)) {
             	
@@ -307,7 +326,6 @@ public class ValueTagPanel extends JPanel
             	ImportValueTagDialog spenel = new ImportValueTagDialog(frame, "Import Value & Tag");
 				spenel.setWayPointPanel(valuetagPanel);
 				spenel.createDialog();
-            	
             } else if("SimulatorList Import".equals(command)) {
             	//SimulatorListDialog의 import버튼
             	

@@ -1,7 +1,11 @@
 package com.iss.simulator.models;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.swing.DefaultCellEditor;
 import javax.swing.JComboBox;
@@ -20,7 +24,8 @@ public class ValueTagModel extends AbstractTableModel {
 	
 	static final public ColumnData m_columns[] = { 
 			new ColumnData("RedisKey", 80, JLabel.CENTER),
-			new ColumnData("Description", 100, JLabel.CENTER, new DefaultCellEditor(new JTextField())), 
+			new ColumnData("Description", 100, JLabel.CENTER, new DefaultCellEditor(new JTextField())),
+			new ColumnData("RedisType", 0, JLabel.CENTER), 
 			new ColumnData("MinValue", 80, JLabel.CENTER, new DefaultCellEditor(new JFormattedTextField(TextNumberFormatter.DoubleFormatter()))),
 			new ColumnData("MaxValue", 80, JLabel.CENTER, new DefaultCellEditor(new JFormattedTextField(TextNumberFormatter.DoubleFormatter()))), 
 			new ColumnData("String_Value", 100, JLabel.CENTER),
@@ -78,11 +83,11 @@ public class ValueTagModel extends AbstractTableModel {
 		else {
 			ValueTag vt = getData(nRow);
 			if("NUMBER".equals(vt.getRedisType())) {
-				if(nCol == 4 || nCol == 5) return false;
+				if(nCol == 5 || nCol == 6) return false;
 			} else if("STRING".equals(vt.getRedisType())) {
-				if(nCol == 2 || nCol == 3 || nCol == 5) return false;
+				if(nCol == 3 || nCol == 4 || nCol == 6) return false;
 			} else if("BOOLEAN".equals(vt.getRedisType())) {
-				if(nCol == 2 || nCol == 3 || nCol == 4) return false;
+				if(nCol == 3 || nCol == 4 || nCol == 5) return false;
 			}
 		}
 		return true;
@@ -102,12 +107,14 @@ public class ValueTagModel extends AbstractTableModel {
 		case 1:
 			return row.getDescription();
 		case 2:
-			return row.getMinValue();
+			return row.getRedisType();
 		case 3:
-			return row.getMaxValue();
+			return row.getMinValue();
 		case 4:
-			return row.getString_Value();
+			return row.getMaxValue();
 		case 5:
+			return row.getString_Value();
+		case 6:
 			return row.getBoolean_Value();
 		}
 		return "";
@@ -126,6 +133,30 @@ public class ValueTagModel extends AbstractTableModel {
 			e.printStackTrace();
 		}
 		return ;
+	}
+	
+	public void changeValue(Map<String, ValueTag> targetData) {
+		Map<String, ValueTag> sourceData = new HashMap<String, ValueTag>();
+		
+		for(ValueTag vt: m_vector) {
+			sourceData.put(vt.getRedisKey(), vt);
+		}
+		
+		Iterator<Entry<String, ValueTag>> it = targetData.entrySet().iterator();
+		while(it.hasNext()) {
+			String key = it.next().getKey();
+			ValueTag vt = targetData.get(key);
+			sourceData.put(key, vt);
+		}
+		
+		Iterator<Entry<String, ValueTag>> it2 = sourceData.entrySet().iterator();
+		removeAll();
+		
+		while(it2.hasNext()) {
+			String key = it2.next().getKey();
+			ValueTag vt = targetData.get(key);
+			m_vector.add(vt);
+		}
 	}
 	
 }

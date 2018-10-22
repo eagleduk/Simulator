@@ -17,8 +17,12 @@ import javax.swing.table.JTableHeader;
 
 import com.iss.simulator.models.WayPoint;
 import com.iss.simulator.models.WayPointModel;
+import com.iss.simulator.util.SimulatorConfig;
 
 public class WayPointPanel extends JPanel {
+	
+	SimulatorConfig sc;
+	
 	JFrame frame;
 	JTable m_table;
 	WayPointPanel wayPoint;
@@ -77,6 +81,10 @@ public class WayPointPanel extends JPanel {
 
 		add(buttonPanel, BorderLayout.NORTH);
 	}
+	
+	public void setConfig(SimulatorConfig sc) {
+		this.sc = sc;
+	}
 
 	public void addData(List<WayPoint> waypoint) {
 		WayPointModel m_data = new WayPointModel();
@@ -103,8 +111,6 @@ public class WayPointPanel extends JPanel {
 		public void actionPerformed(ActionEvent e) {
 			JButton obj = (JButton) e.getSource();
 			String command = obj.getText();
-
-			System.out.println(command);
 
 			if ("Add".equals(command)) {
 				
