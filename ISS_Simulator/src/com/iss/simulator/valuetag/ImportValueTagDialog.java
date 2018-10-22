@@ -47,7 +47,6 @@ public class ImportValueTagDialog extends JDialog {
 				JFileChooser chooser = (JFileChooser) e.getSource();
 		        if (JFileChooser.APPROVE_SELECTION.equals(e.getActionCommand())) {
 		        	File file = chooser.getSelectedFile();
-		        	System.out.println(file.isFile());
 		        	
 		        	try {
 		        	
@@ -83,12 +82,10 @@ public class ImportValueTagDialog extends JDialog {
 									} else if(cellType == Cell.CELL_TYPE_BOOLEAN) {
 										cellValue = cell.getBooleanCellValue();
 									}
-									//System.out.print(cellName + " : " + cellValue + ", ");
 									vt.setValue(cellName, cellValue);
 								}
 								
 							}
-							//System.out.println();
 							list.add(vt);
 						}
 						

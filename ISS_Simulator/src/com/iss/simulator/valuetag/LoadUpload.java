@@ -31,25 +31,30 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.iss.simulator.models.ValueTag;
 
-class SimulatorListDialogImport extends JDialog implements  ActionListener {
+class LoadUpload extends JDialog implements  ActionListener {
 	
-	String engines[] = {"ME1", "ME2", "GE1", "GE2", "GE3", "GE4", "GE5", "BLR1", "BLR2" };
+	List<String> engines;
+	
+	String DATAFOLDER = "DATA";
 	
 	JLabel enginName;
 	JLabel fileNameView;
 	
-	public SimulatorListDialogImport(Dialog dialog, String name) {
+	public LoadUpload(Dialog dialog, String name) {
 		super(dialog, name, true);
 		getContentPane().setLayout(new FlowLayout());
 	}
 	
+	public void setEngines(List<String> engines) {
+		this.engines = engines;
+	}
 
 	public JDialog createDialog() {
-		setSize(400, engines.length * 50 + 50);
+		setSize(400, engines.size() * 50 + 50);
 		setLocation(400, 150);
 		
 		JPanel content = new JPanel(new FlowLayout(FlowLayout.RIGHT,10,10));
-		content.setPreferredSize(new Dimension(400, engines.length * 45));
+		content.setPreferredSize(new Dimension(400, engines.size() * 45));
 		for(String engine: engines) {
 			
 			JPanel eContent = new JPanel(new FlowLayout(FlowLayout.CENTER, 10,5));
@@ -143,26 +148,22 @@ class SimulatorListDialogImport extends JDialog implements  ActionListener {
         String command = obj.getText();
         String btnName=obj.getName();
 
-        if ("SimulatorList".equals(command)){
-
-        } else if("Done".equals(command)) {
+        if("Done".equals(command)) {
         	close();
         } else if("Upload".equals(command)) {
-        	//System.out.println(btnName + " " + command);
         	FileUploadDialog dialog = new FileUploadDialog(this, "fe");
         	dialog.setEngine(btnName);
         	dialog.createDialog();
         } else if("Delete".equals(command)) {
-        	//System.out.println(btnName + " " + command);
         	try {
-				Files.delete((new File("." + File.separator + btnName + File.separator + btnName + ".png")).toPath());
+        		File directory = new File(DATAFOLDER + File.separator + btnName);
+        		for(File files: directory.listFiles()) {
+        			Files.delete(files.toPath());
+        		}
 			} catch (IOException ex) {
-				// TODO Auto-generated catch block
 				ex.printStackTrace();
 			}
-        	
         }
-		
 	}
 	
 	class FileUploadDialog extends JDialog {
@@ -190,10 +191,15 @@ class SimulatorListDialogImport extends JDialog implements  ActionListener {
 			        	File file = chooser.getSelectedFile();
 			        	FileOutputStream fos = null;
 			        	try {
-			        		fos = new FileOutputStream(new File("." + File.separator + engine + File.separator + engine + ".png"));
+			        		File directory = new File(DATAFOLDER + File.separator + engine);
+			        		if(!directory.exists()) directory.mkdir();
+			        		fos = new FileOutputStream(new File(DATAFOLDER + File.separator + engine + File.separator + "load.xlsx"));
 			        		Files.copy(file.toPath(), fos);
 			        		
 			        		// JOptionPane
+			        		
+			        		
+			        		setVisible(false);
 			        	} catch(Exception ex) {
 			        		ex.printStackTrace();
 			        	} finally {

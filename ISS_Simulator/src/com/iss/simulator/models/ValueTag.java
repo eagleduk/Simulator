@@ -77,14 +77,44 @@ public class ValueTag {
 	public void setValue(int nCol, Object value) {
 		String name = "RedisKey";
 		if(nCol == 1 ) name = "Description";
-		else if(nCol ==2) name ="MinValue";
-		else if(nCol ==3) name="MaxValue";
-		else if(nCol ==4) name="String_Value";
-		else if(nCol==5) name ="Boolean_Value";
-		else if(nCol==6)name = "RedisType";
+		else if(nCol ==3) name ="MinValue";
+		else if(nCol ==4) name="MaxValue";
+		else if(nCol ==5) name="String_Value";
+		else if(nCol==6) name ="Boolean_Value";
+		else if(nCol==2)name = "RedisType";
 		
 		setValue(name, value);
+	}
+	
+	public Object getValue(int nCol) {
+		String name = "RedisKey";
+		if(nCol == 1 ) name = "Description";
+		else if(nCol ==3) name ="MinValue";
+		else if(nCol ==4) name="MaxValue";
+		else if(nCol ==5) name="String_Value";
+		else if(nCol==6) name ="Boolean_Value";
+		else if(nCol==2)name = "RedisType";
 		
+		return getValue(name);
+	}
+	
+	public Object getValue(String name) {
+		if("RedisKey".equals(name)) {
+			return getRedisKey();
+		} else if("Description".equals(name)) {
+			return getDescription();
+		} else if("MinValue".equals(name)) {
+			return getMinValue();
+		} else if("MaxValue".equals(name)) {
+			return getMaxValue();
+		} else if("String_Value".equals(name) || "StringValue".equals(name)) {
+			return getString_Value();
+		} else if("Boolean_Value".equals(name) || "BooleanValue".equals(name)) {
+			return getBoolean_Value();
+		} else if("RedisType".equals(name)) {
+			return getRedisType();
+		}
+		return "null";
 	}
 
 }

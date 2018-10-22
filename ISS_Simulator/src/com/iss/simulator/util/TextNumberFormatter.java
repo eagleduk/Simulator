@@ -11,19 +11,6 @@ import javax.swing.text.NumberFormatter;
 public class TextNumberFormatter extends NumberFormatter {
 
 	public TextNumberFormatter() {
-		NumberFormatter numformatter = null;
-		try {
-			NumberFormat format = NumberFormat.getIntegerInstance();
-			format.setParseIntegerOnly(true);
-			
-			numformatter = new NumberFormatter(format);
-			numformatter.setValueClass(Long.class);
-			//numformatter.setFormat(format);
-			numformatter.setAllowsInvalid(false);
-			
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
 	}
 	
 	public static NumberFormatter IntegerFormatter() {
@@ -35,7 +22,6 @@ public class TextNumberFormatter extends NumberFormatter {
 			
 			formatter = new NumberFormatter(format);
 			formatter.setValueClass(Long.class);
-			//numformatter.setFormat(format);
 			formatter.setAllowsInvalid(false);
 			
 		} catch(Exception e) {
@@ -49,8 +35,8 @@ public class TextNumberFormatter extends NumberFormatter {
 		MaskFormatter formatter = null;
 		try {
 			formatter = new MaskFormatter("###.###.###.###");
+			//formatter.setValidCharacters("01234567");
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

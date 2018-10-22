@@ -70,7 +70,7 @@ public class UpdateWayPointDialog extends JDialog {
 		settingPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 0, 10));
 		settingPanel.setBorder(BorderFactory.createEmptyBorder(20, 30, 30, 90));
 
-		/* WayPoint No */
+		/* WayPoint No 
 		JLabel wayPointNo = new JLabel("WayPointNo", JLabel.LEFT);
 		wayPointNo.setPreferredSize(new Dimension(120, 20));
 		settingPanel.add(wayPointNo);
@@ -79,7 +79,8 @@ public class UpdateWayPointDialog extends JDialog {
 		wayPointNoT.setPreferredSize(new Dimension(300, 20));
 		wayPointNoT.setName("WayPointNo");
 		settingPanel.add(wayPointNoT);
-
+		 */
+		
 		/* Latitude */
 		JLabel latitude = new JLabel("Latitude", JLabel.LEFT);
 		latitude.setPreferredSize(new Dimension(120, 20));
@@ -137,11 +138,11 @@ public class UpdateWayPointDialog extends JDialog {
 		JLabel convertLeadTime = new JLabel("ConvertLeadTime", JLabel.LEFT);
 		convertLeadTime.setPreferredSize(new Dimension(120, 20));
 		settingPanel.add(convertLeadTime);
-		convertLeadTimeT = new JLabel(String.valueOf(wp.getLeadTimeString()), JLabel.LEFT);
+		convertLeadTimeT = new JLabel(wp.getLeadTimeString(), JLabel.LEFT);
 		convertLeadTimeT.setPreferredSize(new Dimension(300, 20));
 		convertLeadTimeT.setName("LeadTimeString");
 		settingPanel.add(convertLeadTimeT);
-		convertLeadTimeTF = new JTextField();
+		convertLeadTimeTF = new JTextField(wp.getLeadTimeString());
 		convertLeadTimeTF.setName("LeadTime");
 		convertLeadTimeTF.setVisible(false);
 		settingPanel.add(convertLeadTimeTF);

@@ -6,7 +6,6 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Menu;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -17,14 +16,9 @@ import java.util.Timer;
 
 import javax.swing.AbstractAction;
 import javax.swing.AbstractButton;
-import javax.swing.ButtonGroup;
-import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
@@ -33,12 +27,15 @@ import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 
 import com.iss.simulator.services.SimulatorService;
+import com.iss.simulator.util.SimulatorConfig;
 import com.iss.simulator.util.TextNumberFormatter;
 import com.iss.simulator.valuetag.ValueTagPanel;
 import com.iss.simulator.waypoint.WayPointPanel;
 
 public class IssSimulator extends JPanel {
-
+	
+	static SimulatorConfig sc;
+	
 	JTextField serverIP, port, timeOut, runtime;
 	Checkbox use;
 	
@@ -47,11 +44,14 @@ public class IssSimulator extends JPanel {
 
 	public static void main(String[] args) throws Exception {
 		try {
+			sc = new SimulatorConfig();
+			
 			JFrame frame = new JFrame();
 			Container con = frame.getContentPane();
 			IssSimulator ep = new IssSimulator(frame);
 			con.add(ep);
 			frame.setSize(800, 700);
+			frame.setResizable(false);
 			frame.setVisible(true);
 			frame.addWindowListener(new WindowAdapter() {
 				public void windowClosing(WindowEvent e) { 
@@ -70,9 +70,8 @@ public class IssSimulator extends JPanel {
 	}
 
 	public IssSimulator(JFrame frame) {
-		System.out.println("= ISS Simulator =");
-
-		frame.setTitle("ISS Simulator v0.1");
+		
+		frame.setTitle("ISS Simulator " + sc.getProperty("Sim.Version", "v0.1"));
 		setLayout(new BorderLayout());
 		
 		JPanel settingPanel = new JPanel();
@@ -83,7 +82,7 @@ public class IssSimulator extends JPanel {
 		settingPanel.add(label);
 		serverIP = new JFormattedTextField(TextNumberFormatter.IPFormatter());
 		serverIP.setPreferredSize(new Dimension(100, 20));
-		serverIP.setText("127.000.000.001");
+		serverIP.setText(sc.getProperty("Redis.host", "127.000.000.001"));
 		serverIP.setName("serverIP");
 		settingPanel.add(serverIP);
 
@@ -92,7 +91,7 @@ public class IssSimulator extends JPanel {
 		settingPanel.add(label);
 		port = new JFormattedTextField(TextNumberFormatter.IntegerFormatter());
 		port.setPreferredSize(new Dimension(100, 20));
-		port.setText("6379");
+		port.setText(sc.getProperty("Redis.port", "6379"));
 		port.setName("port");
 		settingPanel.add(port);
 
@@ -101,7 +100,7 @@ public class IssSimulator extends JPanel {
 		settingPanel.add(label);
 		timeOut = new JFormattedTextField(TextNumberFormatter.IntegerFormatter());
 		timeOut.setPreferredSize(new Dimension(100, 20));
-		timeOut.setText("1000");
+		timeOut.setText(sc.getProperty("Redis.timeout", "1000"));
 		timeOut.setName("timeout");
 		settingPanel.add(timeOut);
 
@@ -110,7 +109,7 @@ public class IssSimulator extends JPanel {
 		settingPanel.add(label);
 		runtime = new JFormattedTextField(TextNumberFormatter.IntegerFormatter());
 		runtime.setPreferredSize(new Dimension(100, 20));
-		runtime.setText("2");
+		runtime.setText(sc.getProperty("Redis.Runtime", "2"));
 		runtime.setName("runtime");
 		settingPanel.add(runtime);
 
@@ -160,9 +159,11 @@ public class IssSimulator extends JPanel {
 		JTabbedPane tab = new JTabbedPane(JTabbedPane.TOP);
 
 		WayPointPanel wayPointPanel = new WayPointPanel(frame);
+		wayPointPanel.setConfig(sc);
 		tab.addTab("Way Point", wayPointPanel);
 
 		ValueTagPanel valueTagPanel = new ValueTagPanel(frame);
+		valueTagPanel.setConfig(sc);
 		tab.addTab("Value & Tag", valueTagPanel);
 
 		add(tab, BorderLayout.CENTER);
@@ -190,7 +191,6 @@ public class IssSimulator extends JPanel {
 			} else if(component instanceof JScrollPane) {
 				GetValues(map, ((JScrollPane)component).getViewport().getComponents());
 			} else if(component instanceof JTable) {
-				System.out.println(component.getName());
 				map.put(component.getName(), (JTable)component );
 			}
 		}

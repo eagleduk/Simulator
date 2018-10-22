@@ -43,7 +43,6 @@ public class SimulatorService extends TimerTask {
 		vtm = (ValueTagModel)(map.get("ValueTag")).getModel();
 		
 		if(wpm.getRowCount() > 0) setWayPointPerSecond();
-		//System.out.println("WayPoint = " + wpm.getRowCount() + ", ValueTag = " + vtm.getRowCount());
 	}
 	
 	public void setWayPointPerSecond() {
