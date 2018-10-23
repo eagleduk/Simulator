@@ -86,10 +86,9 @@ public class SimulatorConfig extends Properties {
 		pro.store(new FileOutputStream(file), null);
 	}
 	
-	
 	public static void main(String[] args) throws FileNotFoundException, IOException {
 		// TODO Auto-generated method stub
-		SimulatorConfig sc = new SimulatorConfig();
-		sc.setProperty();
+		//SimulatorConfig sc = new SimulatorConfig();
+		//sc.setProperty();
 	}
 }

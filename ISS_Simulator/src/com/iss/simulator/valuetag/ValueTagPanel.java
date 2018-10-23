@@ -7,6 +7,8 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.List;
@@ -25,9 +27,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
+import javax.swing.table.TableRowSorter;
 
 import com.iss.simulator.models.ValueTag;
 import com.iss.simulator.models.ValueTagModel;
@@ -55,6 +59,8 @@ public class ValueTagPanel extends JPanel {
 	
 	JCheckBox BooleanValueT;
 	
+	JButton searchBtn;
+	
 	ButtonAction action = new ButtonAction();
 	
     public ValueTagPanel(JFrame frame) {
@@ -77,8 +83,11 @@ public class ValueTagPanel extends JPanel {
         top1.add(search);
         searchT = new JTextField();
         searchT.setPreferredSize(new Dimension(200,20));
+        searchT.addActionListener(ae -> {
+        	searchBtn.doClick();
+        });
         top1.add(searchT);
-        JButton searchBtn = new JButton("Search");
+        searchBtn = new JButton("Search");
         searchBtn.setPreferredSize(new Dimension(80,20));
         searchBtn.addActionListener(action);
         top1.add(searchBtn);
@@ -95,6 +104,8 @@ public class ValueTagPanel extends JPanel {
         table.setRowHeight(30);
         table.setName("ValueTag");
         table.setAutoCreateRowSorter(true);
+        //trs = new TableRowSorter<ValueTagModel>();
+        //table.setRowSorter(trs);
         
         for(int i = 0 ; i <ValueTagModel.m_columns.length; i++) {
         	DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
@@ -316,7 +327,7 @@ public class ValueTagPanel extends JPanel {
             	if(table.getSelectedRowCount() == 0) return;
             	
             	int[] rows = table.getSelectedRows();
-				WayPointModel m_data = (WayPointModel) table.getModel();
+				ValueTagModel m_data = (ValueTagModel) table.getModel();
 				for(int i=(rows.length-1); i>=0; i--) {
 					m_data.removeRow(table.getSelectedRow());
 				}
@@ -324,6 +335,11 @@ public class ValueTagPanel extends JPanel {
 				table.updateUI();
 				
             } else if("Search".equals(command)){
+            	String search = searchT.getText();
+            	TableRowSorter<ValueTagModel> trs = new TableRowSorter<ValueTagModel>((ValueTagModel)table.getModel());
+            	table.setRowSorter(trs);
+            	trs.setModel((ValueTagModel)table.getModel());
+            	trs.setRowFilter(RowFilter.regexFilter("(?i)" + search, new int[] {0}));
             	
             } else if("Import".equals(command)) {
             	//ValueTagPanel의 import버튼

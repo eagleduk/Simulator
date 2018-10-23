@@ -74,12 +74,13 @@ public class UpdateWayPointDialog extends JDialog {
 		JLabel wayPointNo = new JLabel("WayPointNo", JLabel.LEFT);
 		wayPointNo.setPreferredSize(new Dimension(120, 20));
 		settingPanel.add(wayPointNo);
+		 */
 		wayPointNoT = new JFormattedTextField(TextNumberFormatter.IntegerFormatter());
 		wayPointNoT.setText(String.valueOf(wp.getNo()));
 		wayPointNoT.setPreferredSize(new Dimension(300, 20));
 		wayPointNoT.setName("WayPointNo");
+		wayPointNoT.setVisible(false);
 		settingPanel.add(wayPointNoT);
-		 */
 		
 		/* Latitude */
 		JLabel latitude = new JLabel("Latitude", JLabel.LEFT);
