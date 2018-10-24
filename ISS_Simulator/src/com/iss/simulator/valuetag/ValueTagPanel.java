@@ -230,13 +230,6 @@ public class ValueTagPanel extends JPanel {
         addBtn.addActionListener(action);
         right.add(addBtn);
         
-        /* Update Button 
-        JButton updateBtn = new JButton("Update");
-        updateBtn.setPreferredSize(new Dimension(80,30));
-        updateBtn.addActionListener(action);
-        right.add(updateBtn);
-        */
-        
         /* Delete Button */
         JButton deleteBtn = new JButton("Delete");
         deleteBtn.setPreferredSize(new Dimension(80,30));
@@ -342,7 +335,6 @@ public class ValueTagPanel extends JPanel {
             	trs.setRowFilter(RowFilter.regexFilter("(?i)" + search, new int[] {0}));
             	
             } else if("Import".equals(command)) {
-            	//ValueTagPanel의 import버튼
             	ImportValueTagDialog spenel = new ImportValueTagDialog(frame, "Import Value & Tag");
 				spenel.setWayPointPanel(valuetagPanel);
 				spenel.createDialog();

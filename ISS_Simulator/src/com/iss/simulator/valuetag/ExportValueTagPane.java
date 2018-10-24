@@ -92,9 +92,6 @@ public class ExportValueTagPane extends JOptionPane {
 					e.printStackTrace();
 				}
 		}
-		
-		
-		
 		return this;
 	}
 }

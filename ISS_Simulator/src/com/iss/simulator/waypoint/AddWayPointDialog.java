@@ -60,17 +60,6 @@ public class AddWayPointDialog extends JDialog {
 		settingPanel = new JPanel();
 		settingPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 0, 10));
 		settingPanel.setBorder(BorderFactory.createEmptyBorder(20, 30, 30, 90));
-		/*
-		JLabel wayPointNo = new JLabel("WayPointNo", JLabel.LEFT);
-		wayPointNo.setPreferredSize(new Dimension(120, 20));
-		settingPanel.add(wayPointNo);
-		
-		
-		wayPointNoT = new JTextField();
-		wayPointNoT.setPreferredSize(new Dimension(300, 20));
-		wayPointNoT.setName("WayPointNo");
-		settingPanel.add(wayPointNoT);
-		 */
 
 		/* Latitude */
 		JLabel latitude = new JLabel("Latitude", JLabel.LEFT);

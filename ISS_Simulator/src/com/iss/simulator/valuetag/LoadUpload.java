@@ -90,49 +90,6 @@ class LoadUpload extends JDialog implements  ActionListener {
 		
 		add(bottom, BorderLayout.SOUTH);
 		
-		/*
-		
-		JPanel [] panel = new JPanel [6]; 
-		for(int i = 0; i<panel.length; i++) {
-			panel[i]=new JPanel();
-			Border border = BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.BLACK)
-					, BorderFactory.createEmptyBorder(30, 10, 5, 30));
-			panel[i].setBorder(border);
-			add(panel[i]);
-			
-			JLabel nameL = new JLabel("Engine Type : ", JLabel.LEFT);
-			nameL.setPreferredSize(new Dimension(75,20));
-			panel[i].add(nameL);
-			
-			enginName = new JLabel("MainEngin1", JLabel.CENTER);
-			enginName.setPreferredSize(new Dimension(150,20));
-			panel[i].add(enginName);
-			
-			JPanel fileuploadPanel = new JPanel();
-			fileuploadPanel.setLayout(null);
-			
-			JButton fileBtn = new JButton("Choose File");
-			fileBtn.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
-			fileBtn.setBackground(Color.WHITE);
-			fileBtn.setBounds(0, 0, 75, 20);
-			fileuploadPanel.add(fileBtn);
-			
-			fileNameView = new JLabel("Choose File Count");
-			fileNameView.setBounds(0, 75, 105, 20);
-			fileuploadPanel.add(fileNameView);
-			
-			JButton uploadBtn = new JButton("Upload");
-			uploadBtn.setBackground(Color.BLACK);
-			uploadBtn.setForeground(Color.WHITE);
-			uploadBtn.setBounds(0, 180, 50, 20);
-			uploadBtn.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
-			fileuploadPanel.add(uploadBtn);
-			
-			panel[i].add(fileuploadPanel);
-		}
-		
-		*/
-		
 		setVisible(true);
 		setResizable(true);
 		return this;
