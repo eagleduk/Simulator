@@ -8,12 +8,14 @@ public class ColumnData {
 	int width;
 	int alignment;
 	DefaultCellEditor cellEditor;
+	boolean resizeable;
 
-	public ColumnData(String title, int width, int alignment) {
+	public ColumnData(String title, int width, int alignment, boolean resizeable) {
 		this.title = title;
 		this.width = width;
 		this.alignment = alignment;
 		this.cellEditor = null;
+		this.resizeable = resizeable;
 	}
 
 	public ColumnData(String title, int width, int alignment, DefaultCellEditor cellEditor) {
@@ -21,6 +23,14 @@ public class ColumnData {
 		this.width = width;
 		this.alignment = alignment;
 		this.cellEditor = cellEditor;
+	}
+	
+	public ColumnData(String title, int width, int alignment, DefaultCellEditor cellEditor, boolean resizeable) {
+		this.title = title;
+		this.width = width;
+		this.alignment = alignment;
+		this.cellEditor = cellEditor;
+		this.resizeable = resizeable;
 	}
 
 	public String getTitle() {
@@ -54,4 +64,17 @@ public class ColumnData {
 	public void setCellEditor(DefaultCellEditor cellEditor) {
 		this.cellEditor = cellEditor;
 	}
+
+	public boolean isResizeable() {
+		return resizeable;
+	}
+
+	public void setResizeable(boolean resizeable) {
+		this.resizeable = resizeable;
+	}
+	
+	public int getMaxSize() {
+		return isResizeable() ? 999:0;
+	}
+	
 }

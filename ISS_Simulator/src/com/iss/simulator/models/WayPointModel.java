@@ -11,10 +11,16 @@ public class WayPointModel extends AbstractTableModel {
 	protected boolean m_sortAsc;
 	protected int m_sortCol;
 
-	static final public ColumnData m_columns[] = { new ColumnData("WayPointNo", 100, JLabel.CENTER),
-			new ColumnData("Latitude", 200, JLabel.CENTER), new ColumnData("Longitude", 200, JLabel.CENTER),
-			new ColumnData("LeadTime", 100, JLabel.CENTER), new ColumnData("LeadTime(s)", 0, JLabel.CENTER),
-			new ColumnData("Heading", 100, JLabel.CENTER), new ColumnData("ForwardDraft", 100, JLabel.CENTER), new ColumnData("AfterDraft", 100, JLabel.CENTER) };
+	static final public ColumnData m_columns[] = { 
+				new ColumnData("WayPointNo", 100, JLabel.CENTER, true),
+				new ColumnData("Latitude", 200, JLabel.CENTER, true), 
+				new ColumnData("Longitude", 200, JLabel.CENTER, true),
+				new ColumnData("LeadTime", 100, JLabel.CENTER, true), 
+				new ColumnData("LeadTime(s)", 0, JLabel.CENTER, false),
+				new ColumnData("Heading", 100, JLabel.CENTER, true), 
+				new ColumnData("ForwardDraft", 100, JLabel.CENTER, true), 
+				new ColumnData("AfterDraft", 100, JLabel.CENTER, true) 
+			};
 
 	protected int m_columnsCount = m_columns.length;
 

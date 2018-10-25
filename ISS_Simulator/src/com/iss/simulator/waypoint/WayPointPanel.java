@@ -15,6 +15,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
 
+import com.iss.simulator.models.ValueTagModel;
 import com.iss.simulator.models.WayPoint;
 import com.iss.simulator.models.WayPointModel;
 import com.iss.simulator.util.SimulatorConfig;
@@ -43,8 +44,8 @@ public class WayPointPanel extends JPanel {
 		for (int k = 0; k < WayPointModel.m_columns.length; k++) {
 			DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
 			renderer.setHorizontalAlignment(WayPointModel.m_columns[k].getAlignment());
-			javax.swing.table.TableColumn column = new javax.swing.table.TableColumn(k,
-					WayPointModel.m_columns[k].getWidth(), renderer, null);
+			javax.swing.table.TableColumn column = new javax.swing.table.TableColumn(k, WayPointModel.m_columns[k].getWidth(), renderer, null);
+			column.setMaxWidth(WayPointModel.m_columns[k].getMaxSize());
 			m_table.addColumn(column);
 		}
 		JScrollPane spane = new JScrollPane(m_table);
@@ -143,16 +144,15 @@ public class WayPointPanel extends JPanel {
 				spenel.createDialog();
 				
 			} else if ("Delete".equals(command)) {
+				
 				if(m_table.getSelectedRowCount() == 0) return;
 				
 				int[] rows = m_table.getSelectedRows();
 				WayPointModel m_data = (WayPointModel) m_table.getModel();
 				for(int i=(rows.length-1); i>=0; i--) {
-					System.out.println(rows[i]);
-					m_data.removeRow(m_table.getSelectedRow());
+					m_data.removeRow(rows[i]);
+					m_data.fireTableRowsDeleted(rows[i], rows[i]);
 				}
-				m_table.setModel(m_data);
-				m_table.updateUI();
 				
 			} else if ("Export".equals(command)) {
 				ExportWayPointDialog spenel = new ExportWayPointDialog(frame, "Export Way Point");

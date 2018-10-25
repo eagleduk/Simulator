@@ -23,13 +23,13 @@ public class ValueTagModel extends AbstractTableModel {
 	protected int m_sortCol;
 	
 	static final public ColumnData m_columns[] = { 
-			new ColumnData("RedisKey", 80, JLabel.CENTER),
-			new ColumnData("Description", 100, JLabel.CENTER, new DefaultCellEditor(new JTextField())),
-			new ColumnData("RedisType", 0, JLabel.CENTER), 
-			new ColumnData("MinValue", 80, JLabel.CENTER, new DefaultCellEditor(new JFormattedTextField(TextNumberFormatter.DoubleFormatter()))),
-			new ColumnData("MaxValue", 80, JLabel.CENTER, new DefaultCellEditor(new JFormattedTextField(TextNumberFormatter.DoubleFormatter()))), 
-			new ColumnData("String_Value", 100, JLabel.CENTER),
-			new ColumnData("Boolean_Value", 100, JLabel.CENTER, new DefaultCellEditor(new JComboBox<String>(new String[] {"true","false"}))) 
+			new ColumnData("RedisKey", 80, JLabel.CENTER, true),
+			new ColumnData("Description", 100, JLabel.CENTER, new DefaultCellEditor(new JTextField()), true),
+			new ColumnData("RedisType", 0, JLabel.CENTER, false), 
+			new ColumnData("MinValue", 80, JLabel.CENTER, new DefaultCellEditor(new JFormattedTextField(TextNumberFormatter.DoubleFormatter())), true),
+			new ColumnData("MaxValue", 80, JLabel.CENTER, new DefaultCellEditor(new JFormattedTextField(TextNumberFormatter.DoubleFormatter())), true), 
+			new ColumnData("String_Value", 100, JLabel.CENTER, true),
+			new ColumnData("Boolean_Value", 100, JLabel.CENTER, new DefaultCellEditor(new JComboBox<String>(new String[] {"true","false"})), true) 
 			};
 
 	protected int m_columnsCount = m_columns.length;
@@ -79,7 +79,7 @@ public class ValueTagModel extends AbstractTableModel {
 	}
 
 	public boolean isCellEditable(int nRow, int nCol) {
-		if(nCol == 0) return false;
+		if(nCol == 0 || nCol == 2) return false;
 		else {
 			ValueTag vt = getData(nRow);
 			if("NUMBER".equals(vt.getRedisType())) {

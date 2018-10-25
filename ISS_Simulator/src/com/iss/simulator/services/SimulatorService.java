@@ -64,7 +64,11 @@ public class SimulatorService extends TimerTask {
 			
 			if(jedis.isConnected()) {
 				Date time = new Date();
-				time.getTime();
+				RunWayPoint(jedis, time);
+				RunValueTag(jedis, time);
+				System.out.println("Send Data Success at " + time);
+			} else {
+				System.out.println("Redis is not connected!!");
 			}
 			
 		} catch(Exception e) {
@@ -76,6 +80,7 @@ public class SimulatorService extends TimerTask {
 	}
 	
 	public void RunWayPoint(Jedis jedis, Date time) {
+		if(wpm.getRowCount() <= 0 ) return;
 		WayPoint wp = wpm.getData(currentWayPoint);
 		
 		double Latitude = wp.getLatitude();
@@ -121,6 +126,11 @@ public class SimulatorService extends TimerTask {
 		jedis.mset(aftDraftRedisKey + "." + PARAMETERS[0], String.valueOf(aftDraft));
 		jedis.mset(aftDraftRedisKey + "." + PARAMETERS[1], String.valueOf(time.getTime()));
 		jedis.mset(aftDraftRedisKey + "." + PARAMETERS[2], "GOOD");
+		
+		if(wp.getLeadTime() <= (runtime * runCount)) {
+			currentWayPoint++;
+			setWayPointPerSecond();
+		}
 		
 	}
 	

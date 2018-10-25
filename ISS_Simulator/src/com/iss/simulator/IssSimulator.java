@@ -51,7 +51,7 @@ public class IssSimulator extends JPanel {
 			IssSimulator ep = new IssSimulator(frame);
 			con.add(ep);
 			frame.setSize(800, 700);
-			frame.setResizable(false);
+			frame.setResizable(true);
 			frame.setVisible(true);
 			frame.addWindowListener(new WindowAdapter() {
 				public void windowClosing(WindowEvent e) { 

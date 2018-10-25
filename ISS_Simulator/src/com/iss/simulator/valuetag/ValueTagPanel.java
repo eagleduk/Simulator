@@ -111,6 +111,7 @@ public class ValueTagPanel extends JPanel {
         	DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
         	renderer.setHorizontalAlignment(ValueTagModel.m_columns[i].getAlignment());
             TableColumn column = new TableColumn(i, ValueTagModel.m_columns[i].getWidth(), renderer, ValueTagModel.m_columns[i].getCellEditor());
+            column.setMaxWidth(ValueTagModel.m_columns[i].getMaxSize());
             table.addColumn(column);
         }
         
@@ -320,20 +321,19 @@ public class ValueTagPanel extends JPanel {
             	if(table.getSelectedRowCount() == 0) return;
             	
             	int[] rows = table.getSelectedRows();
-				ValueTagModel m_data = (ValueTagModel) table.getModel();
+            	
+            	ValueTagModel m_data = (ValueTagModel) table.getModel();
 				for(int i=(rows.length-1); i>=0; i--) {
-					m_data.removeRow(table.getSelectedRow());
+					m_data.removeRow(rows[i]);
+					m_data.fireTableRowsDeleted(rows[i], rows[i]);
 				}
-				table.setModel(m_data);
-				table.updateUI();
-				
+
             } else if("Search".equals(command)){
             	String search = searchT.getText();
             	TableRowSorter<ValueTagModel> trs = new TableRowSorter<ValueTagModel>((ValueTagModel)table.getModel());
             	table.setRowSorter(trs);
             	trs.setModel((ValueTagModel)table.getModel());
-            	trs.setRowFilter(RowFilter.regexFilter("(?i)" + search, new int[] {0}));
-            	
+            	trs.setRowFilter(RowFilter.regexFilter("(?i)" + search, new int[] {0, 1}));
             } else if("Import".equals(command)) {
             	ImportValueTagDialog spenel = new ImportValueTagDialog(frame, "Import Value & Tag");
 				spenel.setWayPointPanel(valuetagPanel);
