@@ -30,12 +30,15 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.iss.simulator.models.ValueTag;
+import com.iss.simulator.util.SimulatorConfig;
 
 class LoadUpload extends JDialog implements  ActionListener {
 	
 	List<String> engines;
 	
-	String DATAFOLDER = "DATA";
+	SimulatorConfig sc;
+	
+	String DATAFOLDER;
 	
 	JLabel enginName;
 	JLabel fileNameView;
@@ -47,6 +50,12 @@ class LoadUpload extends JDialog implements  ActionListener {
 	
 	public void setEngines(List<String> engines) {
 		this.engines = engines;
+	}
+	
+	public void setConfig(SimulatorConfig sc) {
+		this.sc = sc;
+		DATAFOLDER = sc.getProperty("ValueTag.LoadRoot", "data");
+		new File(DATAFOLDER).mkdirs();
 	}
 
 	public JDialog createDialog() {
@@ -155,7 +164,6 @@ class LoadUpload extends JDialog implements  ActionListener {
 			        		
 			        		// JOptionPane
 			        		
-			        		
 			        		setVisible(false);
 			        	} catch(Exception ex) {
 			        		ex.printStackTrace();
@@ -166,8 +174,6 @@ class LoadUpload extends JDialog implements  ActionListener {
 								ex1.printStackTrace();
 							}
 			        	}
-
-			        	
 			        } else if (JFileChooser.CANCEL_SELECTION.equals(e.getActionCommand())) {
 			        	setVisible(false);
 			        }

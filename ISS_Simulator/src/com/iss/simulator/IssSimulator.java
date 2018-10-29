@@ -7,6 +7,8 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.Date;
@@ -16,6 +18,7 @@ import java.util.Timer;
 
 import javax.swing.AbstractAction;
 import javax.swing.AbstractButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -37,10 +40,12 @@ public class IssSimulator extends JPanel {
 	static SimulatorConfig sc;
 	
 	JTextField serverIP, port, timeOut, runtime;
-	Checkbox use;
+	JCheckBox isLocal, use;
 	
 	static Timer timer;
 	static int TimerSec = 2;
+	
+	String tempIP;
 
 	public static void main(String[] args) throws Exception {
 		try {
@@ -74,48 +79,67 @@ public class IssSimulator extends JPanel {
 		
 		JPanel settingPanel = new JPanel();
 		settingPanel.setLayout(new FlowLayout());
+		
+		/* Local Check */
+		JLabel local = new JLabel("Local : ");
+		settingPanel.add(local);
+		isLocal = new JCheckBox();
+		isLocal.addItemListener(new ItemListener() {
+			
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				serverIP.setEditable(!isLocal.isSelected());
+				if(isLocal.isSelected()) {
+					tempIP = serverIP.getText();
+					serverIP.setText("127.000.000.001");
+				} else {
+					serverIP.setText(tempIP);
+				}
+			}
+		});
+		settingPanel.add(isLocal);
 
 		/* Server IP */
-		JLabel label = new JLabel("Server IP:");
+		JLabel label = new JLabel(" Server IP : ");
 		settingPanel.add(label);
 		serverIP = new JFormattedTextField(TextNumberFormatter.IPFormatter());
-		serverIP.setPreferredSize(new Dimension(100, 20));
+		serverIP.setPreferredSize(new Dimension(110, 20));
 		serverIP.setText(sc.getProperty("Redis.host", "127.000.000.001"));
 		serverIP.setName("serverIP");
 		settingPanel.add(serverIP);
 
 		/* Port */
-		label = new JLabel(" Port:");
+		label = new JLabel(" Port : ");
 		settingPanel.add(label);
 		port = new JFormattedTextField(TextNumberFormatter.IntegerFormatter());
-		port.setPreferredSize(new Dimension(100, 20));
+		port.setPreferredSize(new Dimension(60, 20));
 		port.setText(sc.getProperty("Redis.port", "6379"));
 		port.setName("port");
 		settingPanel.add(port);
 
 		/* Timeout */
-		label = new JLabel(" Timeout:");
+		label = new JLabel(" Timeout : ");
 		settingPanel.add(label);
 		timeOut = new JFormattedTextField(TextNumberFormatter.IntegerFormatter());
-		timeOut.setPreferredSize(new Dimension(100, 20));
+		timeOut.setPreferredSize(new Dimension(60, 20));
 		timeOut.setText(sc.getProperty("Redis.timeout", "1000"));
 		timeOut.setName("timeout");
 		settingPanel.add(timeOut);
 
 		/* Runtime */
-		label = new JLabel(" Runtime:");
+		label = new JLabel(" Runtime : ");
 		settingPanel.add(label);
 		runtime = new JFormattedTextField(TextNumberFormatter.IntegerFormatter());
-		runtime.setPreferredSize(new Dimension(100, 20));
+		runtime.setPreferredSize(new Dimension(40, 20));
 		runtime.setText(sc.getProperty("Redis.Runtime", "2"));
 		runtime.setName("runtime");
 		settingPanel.add(runtime);
 
 		/* Use */
-		label = new JLabel(" Use:");
+		label = new JLabel(" Use : ");
 		settingPanel.add(label);
 
-		use = new Checkbox("");
+		use = new JCheckBox("");
 		settingPanel.add(use);
 
 		/*

@@ -122,6 +122,7 @@ public class SimulatorSetting extends JDialog implements  ActionListener{
         if ("Import".equals(command)){
         	LoadUpload spenel = new LoadUpload(dialog, "Engine Load Setting");
         	spenel.setEngines(engines);
+        	spenel.setConfig(sc);
             spenel.createDialog();
         } else if("Done".equals(command)) {
         	Map<String, ValueTag> map = GetLoadSettingData();
