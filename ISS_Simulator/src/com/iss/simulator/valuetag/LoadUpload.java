@@ -7,12 +7,9 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.nio.file.Files;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.AbstractAction;
@@ -23,15 +20,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import org.apache.poi.openxml4j.opc.OPCPackage;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
-import com.iss.simulator.models.ValueTag;
 import com.iss.simulator.util.SimulatorConfig;
 
+@SuppressWarnings("serial")
 class LoadUpload extends JDialog implements  ActionListener {
 	
 	List<String> engines;

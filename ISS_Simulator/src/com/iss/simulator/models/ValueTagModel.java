@@ -16,6 +16,7 @@ import javax.swing.table.AbstractTableModel;
 
 import com.iss.simulator.util.TextNumberFormatter;
 
+@SuppressWarnings("serial")
 public class ValueTagModel extends AbstractTableModel {
 
 	protected List<ValueTag> m_vector;

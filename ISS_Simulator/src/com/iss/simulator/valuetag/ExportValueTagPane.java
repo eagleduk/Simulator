@@ -18,13 +18,19 @@ import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 
 import com.iss.simulator.models.ValueTag;
 import com.iss.simulator.models.ValueTagModel;
+import com.iss.simulator.util.SimulatorConfig;
 
+@SuppressWarnings({"serial","resource"})
 public class ExportValueTagPane extends JOptionPane {
 
 	final String[] ValueTagHeaders = {"RedisKey", "Description", "RedisType", "MinValue", "MaxValue", "Value_String", "Value_Boolean"};
 	
 	Component com;
 	JTable table;
+	
+	SimulatorConfig sc;
+	
+	String EXPORTFOLDER;
 	
 	public ExportValueTagPane(Frame frame, String name) {
 		super();
@@ -33,6 +39,12 @@ public class ExportValueTagPane extends JOptionPane {
 	
 	public void setTable(JTable table) {
 		this.table = table;
+	}
+	
+	public void setConfig(SimulatorConfig sc) {
+		this.sc = sc;
+		EXPORTFOLDER = sc.getProperty("File.Export", "export");
+		new File(EXPORTFOLDER).mkdirs();
 	}
 	
 	public JOptionPane createDialog() {
@@ -44,7 +56,7 @@ public class ExportValueTagPane extends JOptionPane {
 			ValueTagModel model = (ValueTagModel)table.getModel();
 			
 			String filename = new Date().getTime() + "_ValueTag.xlsx";
-			File file = new File(filename);
+			File file = new File(EXPORTFOLDER + File.separator + filename);
 	        
 			Workbook workbook = new SXSSFWorkbook();
 			SXSSFSheet sheet = (SXSSFSheet) workbook.createSheet();
@@ -88,7 +100,6 @@ public class ExportValueTagPane extends JOptionPane {
 				try {
 					fos.close();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 		}

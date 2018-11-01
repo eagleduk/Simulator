@@ -1,7 +1,6 @@
 package com.iss.simulator.models;
 
 import javax.swing.DefaultCellEditor;
-import javax.swing.table.TableColumn;
 
 public class ColumnData {
 	String title;

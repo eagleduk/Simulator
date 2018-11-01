@@ -6,6 +6,7 @@ import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.table.AbstractTableModel;
 
+@SuppressWarnings("serial")
 public class WayPointModel extends AbstractTableModel {
 	protected List<WayPoint> m_vector;
 	protected boolean m_sortAsc;
