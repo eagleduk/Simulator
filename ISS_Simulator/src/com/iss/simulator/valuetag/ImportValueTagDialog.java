@@ -19,8 +19,8 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.iss.simulator.models.ValueTag;
-import com.iss.simulator.models.WayPoint;
 
+@SuppressWarnings({"serial","resource"})
 public class ImportValueTagDialog extends JDialog {
 	
 	final String[] ValueTagHeaders = {"RedisKey", "Description", "RedisType", "MinValue", "MaxValue", "Value_String", "Value_Boolean"};

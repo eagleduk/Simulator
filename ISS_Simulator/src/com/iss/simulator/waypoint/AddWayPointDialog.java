@@ -21,6 +21,7 @@ import javax.swing.JTextField;
 import com.iss.simulator.models.WayPoint;
 import com.iss.simulator.util.TextNumberFormatter;
 
+@SuppressWarnings("serial")
 public class AddWayPointDialog extends JDialog {
 	
 	JPanel settingPanel;

@@ -8,6 +8,7 @@ import java.text.ParseException;
 import javax.swing.text.MaskFormatter;
 import javax.swing.text.NumberFormatter;
 
+@SuppressWarnings("serial")
 public class TextNumberFormatter extends NumberFormatter {
 
 	public TextNumberFormatter() {

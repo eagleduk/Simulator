@@ -15,11 +15,11 @@ import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
 
-import com.iss.simulator.models.ValueTagModel;
 import com.iss.simulator.models.WayPoint;
 import com.iss.simulator.models.WayPointModel;
 import com.iss.simulator.util.SimulatorConfig;
 
+@SuppressWarnings("serial")
 public class WayPointPanel extends JPanel {
 	
 	SimulatorConfig sc;
@@ -157,6 +157,7 @@ public class WayPointPanel extends JPanel {
 			} else if ("Export".equals(command)) {
 				ExportWayPointDialog spenel = new ExportWayPointDialog(frame, "Export Way Point");
 				spenel.setTable(m_table);
+				spenel.setConfig(sc);
 				spenel.createDialog();
 			}
 		}

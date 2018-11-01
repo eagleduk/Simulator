@@ -14,6 +14,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import com.iss.simulator.services.SaveService;
 import com.iss.simulator.util.SimulatorConfig;
 
+@SuppressWarnings("serial")
 public class SaveConfigDialog extends JDialog {
 
 	JFrame frame;

@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Font;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.FocusEvent;
@@ -19,11 +18,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import org.apache.poi.util.SystemOutLogger;
-
 import com.iss.simulator.models.WayPoint;
 import com.iss.simulator.util.TextNumberFormatter;
 
+@SuppressWarnings("serial")
 public class UpdateWayPointDialog extends JDialog {
 	
 	JPanel settingPanel;

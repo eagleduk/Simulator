@@ -8,7 +8,6 @@ import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -30,6 +29,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import com.iss.simulator.models.ValueTag;
 import com.iss.simulator.util.SimulatorConfig;
 
+@SuppressWarnings("serial")
 public class SimulatorSetting extends JDialog implements  ActionListener{
 	
 	Dialog dialog=this;
@@ -53,7 +53,7 @@ public class SimulatorSetting extends JDialog implements  ActionListener{
 	public void setConfig(SimulatorConfig sc) {
 		this.sc = sc;
 		this.engines = sc.getEngineNames();
-		sc.getEngineLoadSelectedValues();
+		//sc.getEngineLoadSelectedValues();
 	}
 	
 	public void setWayPointPanel(ValueTagPanel valuetagPanel){
@@ -73,7 +73,7 @@ public class SimulatorSetting extends JDialog implements  ActionListener{
 		
 		for(int i=0; i<this.engines.size(); i++) {
 			String engine = this.engines.get(i);
-			Integer value = sc.getEngineLoadSelectedValue(i);
+			Integer value = sc.getEngineLoadSelectedValue(engine);
 			
 			JPanel content = new JPanel(new FlowLayout(FlowLayout.CENTER,10,0));
 			content.setPreferredSize(new Dimension(100, 150));
@@ -184,10 +184,12 @@ public class SimulatorSetting extends JDialog implements  ActionListener{
 					result.put(vt.getRedisKey(), vt);
 				}
 				setVisible(false);
+				
+				sc.setEngineLoadSelectedValue(list.getName(), list.getSelectedIndex());
+				
 			} catch(Exception ex) {
 				ex.printStackTrace();
 			}
-    		sc.setEngineLoadSelectedValue(i, list.getSelectedIndex());
     	}
 		return result;
 	}

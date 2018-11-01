@@ -7,10 +7,6 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.List;
 import java.util.Map;
 
@@ -35,10 +31,10 @@ import javax.swing.table.TableRowSorter;
 
 import com.iss.simulator.models.ValueTag;
 import com.iss.simulator.models.ValueTagModel;
-import com.iss.simulator.models.WayPointModel;
 import com.iss.simulator.util.SimulatorConfig;
 import com.iss.simulator.util.TextNumberFormatter;
 
+@SuppressWarnings("serial")
 public class ValueTagPanel extends JPanel {
 	
 	SimulatorConfig sc;
@@ -343,6 +339,7 @@ public class ValueTagPanel extends JPanel {
             } else if("Export".equals(command)) {
             	ExportValueTagPane spenel = new ExportValueTagPane(frame, "Export");
             	spenel.setTable(table);
+            	spenel.setConfig(sc);
             	spenel.createDialog();
             }
         }

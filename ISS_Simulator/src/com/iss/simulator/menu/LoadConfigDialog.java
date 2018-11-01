@@ -12,9 +12,9 @@ import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.iss.simulator.services.LoadService;
-import com.iss.simulator.services.SaveService;
 import com.iss.simulator.util.SimulatorConfig;
 
+@SuppressWarnings("serial")
 public class LoadConfigDialog extends JDialog {
 
 	JFrame frame;

@@ -1,7 +1,6 @@
 package com.iss.simulator;
 
 import java.awt.BorderLayout;
-import java.awt.Checkbox;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -37,6 +36,7 @@ import com.iss.simulator.util.TextNumberFormatter;
 import com.iss.simulator.valuetag.ValueTagPanel;
 import com.iss.simulator.waypoint.WayPointPanel;
 
+@SuppressWarnings("serial")
 public class IssSimulator extends JPanel {
 	
 	static SimulatorConfig sc;

@@ -18,13 +18,19 @@ import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 
 import com.iss.simulator.models.WayPoint;
 import com.iss.simulator.models.WayPointModel;
+import com.iss.simulator.util.SimulatorConfig;
 
+@SuppressWarnings({"serial","resource"})
 public class ExportWayPointDialog extends JOptionPane {
 	
 	final String[] WayPointHeaders = {"WayPointNo", "Latitude", "Longitude", "LeadTime(s)", "Heading", "FwdDraft", "AftDraft"};
 	
 	Component com;
 	JTable m_table;
+	
+	SimulatorConfig sc;
+	
+	String EXPORTFOLDER;
 	
 	public ExportWayPointDialog(Frame frame, String name) {
 		super();
@@ -33,6 +39,12 @@ public class ExportWayPointDialog extends JOptionPane {
 	
 	public void setTable(JTable table) {
 		this.m_table = table;
+	}
+	
+	public void setConfig(SimulatorConfig sc) {
+		this.sc = sc;
+		EXPORTFOLDER = sc.getProperty("File.Export", "export");
+		new File(EXPORTFOLDER).mkdirs();
 	}
 	
 	public JOptionPane createDialog() {
@@ -44,7 +56,7 @@ public class ExportWayPointDialog extends JOptionPane {
 			WayPointModel model = (WayPointModel)m_table.getModel();
 	
 			String filename = new Date().getTime() + "_WayPoint.xlsx";
-			File file = new File(filename);
+			File file = new File(EXPORTFOLDER + File.separator + filename);
 	        
 			Workbook workbook = new SXSSFWorkbook();
 			SXSSFSheet sheet = (SXSSFSheet) workbook.createSheet();
@@ -87,8 +99,6 @@ public class ExportWayPointDialog extends JOptionPane {
 				try {
 					fos.close();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
 				}
 		}
 		return this;

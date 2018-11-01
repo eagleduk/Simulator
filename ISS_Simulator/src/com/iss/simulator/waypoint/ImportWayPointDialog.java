@@ -20,6 +20,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.iss.simulator.models.WayPoint;
 
+@SuppressWarnings({"serial","resource"})
 public class ImportWayPointDialog extends JDialog {
 	
 	final String[] WayPointHeaders = {"WayPointNo", "Latitude", "Longitude", "LeadTime(s)", "Heading", "FwdDraft", "AftDraft"};
