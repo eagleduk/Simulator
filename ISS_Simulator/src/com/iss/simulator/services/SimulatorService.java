@@ -66,7 +66,7 @@ public class SimulatorService extends TimerTask {
 				Date time = new Date();
 				RunWayPoint(jedis, time);
 				RunValueTag(jedis, time);
-				System.out.println("Send Data Success at " + time);
+				System.out.println("Send Success at " + time);
 			} else {
 				System.out.println("Redis is not connected!!");
 			}
@@ -127,8 +127,10 @@ public class SimulatorService extends TimerTask {
 		jedis.mset(aftDraftRedisKey + "." + PARAMETERS[1], String.valueOf(time.getTime()));
 		jedis.mset(aftDraftRedisKey + "." + PARAMETERS[2], "GOOD");
 		
-		if(wp.getLeadTime() <= (runtime * runCount)) {
+		if(wp.getLeadTime() <= (runtime * runCount++)) {
+			this.runCount = 0;
 			currentWayPoint++;
+			if(wpm.getRowCount()-1 == currentWayPoint) currentWayPoint = 0;
 			setWayPointPerSecond();
 		}
 		
@@ -146,10 +148,12 @@ public class SimulatorService extends TimerTask {
 			String Value_Boolean = vt.getBoolean_Value();
 			
 			RedisData data = new RedisData(RedisKey, MaxValue, MinValue, Value_String, Value_Boolean, RedisType);
+			String key = data.getRedisKey();
+			Object value = data.getValue(vtm.getRowCount());
 
-			jedis.mset(data.getRedisKey() + "." + PARAMETERS[0], String.valueOf(data.getValue(vtm.getRowCount())));
-			jedis.mset(data.getRedisKey() + "." + PARAMETERS[1], String.valueOf(time.getTime()));
-			jedis.mset(data.getRedisKey() + "." + PARAMETERS[2], data.getQuality());
+			jedis.mset(key + "." + PARAMETERS[0], String.valueOf(value));
+			jedis.mset(key + "." + PARAMETERS[1], String.valueOf(time.getTime()));
+			jedis.mset(key + "." + PARAMETERS[2], data.getQuality());
 			
 		}
 	}

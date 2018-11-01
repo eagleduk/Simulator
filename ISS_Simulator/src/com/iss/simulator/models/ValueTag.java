@@ -77,11 +77,11 @@ public class ValueTag {
 	public void setValue(int nCol, Object value) {
 		String name = "RedisKey";
 		if(nCol == 1 ) name = "Description";
-		else if(nCol ==3) name ="MinValue";
-		else if(nCol ==4) name="MaxValue";
-		else if(nCol ==5) name="String_Value";
-		else if(nCol==6) name ="Boolean_Value";
-		else if(nCol==2)name = "RedisType";
+		else if(nCol == 3) name ="MinValue";
+		else if(nCol == 4) name="MaxValue";
+		else if(nCol == 5) name="String_Value";
+		else if(nCol == 6) name ="Boolean_Value";
+		else if(nCol == 2)name = "RedisType";
 		
 		setValue(name, value);
 	}
@@ -89,11 +89,11 @@ public class ValueTag {
 	public Object getValue(int nCol) {
 		String name = "RedisKey";
 		if(nCol == 1 ) name = "Description";
-		else if(nCol ==3) name ="MinValue";
-		else if(nCol ==4) name="MaxValue";
-		else if(nCol ==5) name="String_Value";
-		else if(nCol==6) name ="Boolean_Value";
-		else if(nCol==2) name = "RedisType";
+		else if(nCol == 3) name ="MinValue";
+		else if(nCol == 4) name="MaxValue";
+		else if(nCol == 5) name="String_Value";
+		else if(nCol == 6) name ="Boolean_Value";
+		else if(nCol == 2) name = "RedisType";
 		
 		return getValue(name);
 	}
@@ -115,5 +115,17 @@ public class ValueTag {
 			return getRedisType();
 		}
 		return "";
+	}
+	
+	public String getNameTag(int nCol) {
+		String name = "RedisKey";
+		if(nCol == 1 ) name = "Description";
+		else if(nCol == 3) name ="MinValue";
+		else if(nCol == 4) name="MaxValue";
+		else if(nCol == 5) name="String_Value";
+		else if(nCol == 6) name ="Boolean_Value";
+		else if(nCol == 2) name = "RedisType";
+		
+		return name;
 	}
 }

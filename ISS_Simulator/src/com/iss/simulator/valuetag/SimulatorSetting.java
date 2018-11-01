@@ -53,6 +53,7 @@ public class SimulatorSetting extends JDialog implements  ActionListener{
 	public void setConfig(SimulatorConfig sc) {
 		this.sc = sc;
 		this.engines = sc.getEngineNames();
+		sc.getEngineLoadSelectedValues();
 	}
 	
 	public void setWayPointPanel(ValueTagPanel valuetagPanel){
@@ -70,13 +71,16 @@ public class SimulatorSetting extends JDialog implements  ActionListener{
 		
 		JPanel setting = new JPanel(new FlowLayout(FlowLayout.LEFT,10,0));
 		
-		for(String engine: engines) {
+		for(int i=0; i<this.engines.size(); i++) {
+			String engine = this.engines.get(i);
+			Integer value = sc.getEngineLoadSelectedValue(i);
 			
 			JPanel content = new JPanel(new FlowLayout(FlowLayout.CENTER,10,0));
 			content.setPreferredSize(new Dimension(100, 150));
 			
 			JList<String> list = new JList<String>(engineLoad);
 			list.setName(engine);
+			if(value != null) list.setSelectedIndex(value);
 			list.setPreferredSize(new Dimension(100, 100));
 			DefaultListCellRenderer renderer =  (DefaultListCellRenderer)list.getCellRenderer();  
 			renderer.setHorizontalAlignment(JLabel.CENTER); 
@@ -135,7 +139,8 @@ public class SimulatorSetting extends JDialog implements  ActionListener{
 	
 	public Map<String, ValueTag> GetLoadSettingData() {
 		Map<String, ValueTag> result = new HashMap<String, ValueTag>();
-		for(JList<String> list: lists) {
+		for(int i=0; i<lists.size(); i++) {
+			JList<String> list = lists.get(i);
     		File file = new File(sc.getProperty("ValueTag.LoadRoot") + File.separator + list.getName() + File.separator + "Load.xlsx");
     		XSSFWorkbook workbook = null;
     		try {
@@ -144,6 +149,7 @@ public class SimulatorSetting extends JDialog implements  ActionListener{
 	        	OPCPackage opcPackage = OPCPackage.open(file);
 				workbook = new XSSFWorkbook(opcPackage);
 				opcPackage.close();
+				if(workbook.getNumberOfSheets() <= list.getSelectedIndex()) continue;
 				XSSFSheet sheet = workbook.getSheetAt(list.getSelectedIndex());
 				boolean isHeader = true;
 				
@@ -181,6 +187,7 @@ public class SimulatorSetting extends JDialog implements  ActionListener{
 			} catch(Exception ex) {
 				ex.printStackTrace();
 			}
+    		sc.setEngineLoadSelectedValue(i, list.getSelectedIndex());
     	}
 		return result;
 	}

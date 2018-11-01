@@ -22,6 +22,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
@@ -29,6 +30,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 
+import com.iss.simulator.menu.SimulatorMenu;
 import com.iss.simulator.services.SimulatorService;
 import com.iss.simulator.util.SimulatorConfig;
 import com.iss.simulator.util.TextNumberFormatter;
@@ -56,6 +58,7 @@ public class IssSimulator extends JPanel {
 			IssSimulator ep = new IssSimulator(frame);
 			con.add(ep);
 			frame.setSize(800, 700);
+			frame.setLocation(500, 100);
 			frame.setResizable(true);
 			frame.setVisible(true);
 			frame.addWindowListener(new WindowAdapter() {
@@ -80,10 +83,25 @@ public class IssSimulator extends JPanel {
 		JPanel settingPanel = new JPanel();
 		settingPanel.setLayout(new FlowLayout());
 		
+		SimulatorMenu menu = new SimulatorMenu(frame, this, timer, sc);
+		
+		JMenuBar menubar = new JMenuBar();
+		menubar.add(menu.FileMenu());
+		menubar.add(menu.OptionMenu());
+		frame.setJMenuBar(menubar);
+		
+		/* Server IP */
+		JLabel label = new JLabel(" Server IP : ");
+		settingPanel.add(label);
+		serverIP = new JFormattedTextField(TextNumberFormatter.IPFormatter());
+		serverIP.setPreferredSize(new Dimension(110, 20));
+		serverIP.setText(sc.getProperty("Redis.host", "127.000.000.001"));
+		serverIP.setName("serverIP");
+		settingPanel.add(serverIP);
+
 		/* Local Check */
-		JLabel local = new JLabel("Local : ");
-		settingPanel.add(local);
-		isLocal = new JCheckBox();
+		isLocal = new JCheckBox("localhost");
+		isLocal.setName("isLocal");
 		isLocal.addItemListener(new ItemListener() {
 			
 			@Override
@@ -98,15 +116,6 @@ public class IssSimulator extends JPanel {
 			}
 		});
 		settingPanel.add(isLocal);
-
-		/* Server IP */
-		JLabel label = new JLabel(" Server IP : ");
-		settingPanel.add(label);
-		serverIP = new JFormattedTextField(TextNumberFormatter.IPFormatter());
-		serverIP.setPreferredSize(new Dimension(110, 20));
-		serverIP.setText(sc.getProperty("Redis.host", "127.000.000.001"));
-		serverIP.setName("serverIP");
-		settingPanel.add(serverIP);
 
 		/* Port */
 		label = new JLabel(" Port : ");
@@ -142,11 +151,6 @@ public class IssSimulator extends JPanel {
 		use = new JCheckBox("");
 		settingPanel.add(use);
 
-		/*
-		JButton button = new JButton("Done");
-		settingPanel.add(button);
-		*/
-		
 		JToggleButton button = new JToggleButton("START");
 		button.addActionListener(new AbstractAction() {
 
@@ -172,8 +176,8 @@ public class IssSimulator extends JPanel {
                 	timer.cancel();
                 }
 			}
-			
 		});
+		
 		settingPanel.add(button);
 		
 		add(settingPanel, BorderLayout.NORTH);
@@ -216,6 +220,5 @@ public class IssSimulator extends JPanel {
 				map.put(component.getName(), (JTable)component );
 			}
 		}
-		
 	}
 };

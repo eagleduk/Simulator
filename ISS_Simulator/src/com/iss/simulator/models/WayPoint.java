@@ -78,7 +78,7 @@ public class WayPoint
 		} else if("Longitude".equals(cellName)) {
 			if(cellValue instanceof String) setLongitude(Double.parseDouble(((String)cellValue)));
 			else setLongitude((double)cellValue);
-		} else if("LeadTime(s)".equals(cellName)) {
+		} else if("LeadTime(s)".equals(cellName) || "Second".equals(cellName)) {
 			if(cellValue instanceof Double) setLeadTime(new Double((double) cellValue).intValue());
 			else if(cellValue instanceof String) setLeadTime(Integer.parseInt((String)cellValue));
 			else setLeadTime(((Integer) cellValue).intValue());
@@ -138,6 +138,28 @@ public class WayPoint
 			result = getLeadTimeString();
 		}
 		return result;
+	}
+	
+	public String getNameTag(int nCol) {
+		switch (nCol) {
+		case 0:
+			return "WayPointNo";
+		case 1:
+			return "Latitude";
+		case 2:
+			return "Longitude";
+		case 3:
+			return "LeadTime";
+		case 4:
+			return "Second";
+		case 5:
+			return "Heading";
+		case 6:
+			return "ForwardDraft";
+		case 7:
+			return "AfterDraft";
+		}
+		return "";
 	}
 	
 }

@@ -11,13 +11,15 @@ import java.util.Properties;
 
 public class SimulatorConfig extends Properties {
 	
+	Integer[] engineLoadSelectedValues;
+	
 	Properties pro;
 	
 	public SimulatorConfig() {
 		
 		FileInputStream fis = null;
 		try {
-			File file = new File("Simulator.properties");
+			File file = new File("conf" + File.separator + "Simulator.properties");
 			fis = new FileInputStream(file);
 			
 			pro = new Properties();
@@ -32,6 +34,22 @@ public class SimulatorConfig extends Properties {
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
+		}
+	}
+	
+	public int getNumberProperty(String propertyName) {
+		try {
+			return Integer.parseInt(getProperty(propertyName));
+		} catch(NumberFormatException e) {
+			return 0;
+		}
+	}
+	
+	public int getNumberProperty(String propertyName, String defaultValue) {
+		try {
+			return Integer.parseInt(getProperty(propertyName, defaultValue));
+		} catch(NumberFormatException e) {
+			return 0;
 		}
 	}
 	
@@ -74,16 +92,23 @@ public class SimulatorConfig extends Properties {
 		return load.split(",");
 	}
 	
+	public Integer[] getEngineLoadSelectedValues() {
+		if(engineLoadSelectedValues == null) engineLoadSelectedValues = new Integer[getEngineNames().size()];
+		return this.engineLoadSelectedValues;
+	}
+	
+	public void setEngineLoadSelectedValue(int index, int value) {
+		this.engineLoadSelectedValues[index] = value;
+	}
+	
+	public Integer getEngineLoadSelectedValue(int index) {
+		return this.engineLoadSelectedValues[index];
+	}
+	
 	public void setEngineName(List<String> list, int count, String engine) {
 		for(int i=0; i<count; i++) {
 			list.add(engine + (i+1));
 		}
-	}
-	
-	public void setProperty() throws FileNotFoundException, IOException {
-		File file = new File("Simulator.properties");
-		pro.setProperty("MainEngine.Count", "1");
-		pro.store(new FileOutputStream(file), null);
 	}
 	
 	public static void main(String[] args) throws FileNotFoundException, IOException {

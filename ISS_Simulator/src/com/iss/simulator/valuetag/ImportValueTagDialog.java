@@ -39,7 +39,7 @@ public class ImportValueTagDialog extends JDialog {
 		JFileChooser chooser = new JFileChooser();
 		FileNameExtensionFilter filter = new FileNameExtensionFilter("XLSX Files", "xlsx");
 		chooser.setCurrentDirectory(new File("."));
-		chooser.setDialogType(JFileChooser.SAVE_DIALOG);
+		chooser.setDialogType(JFileChooser.OPEN_DIALOG);
         chooser.setFileFilter(filter);
         chooser.addActionListener(new AbstractAction() {
 			@Override
@@ -73,7 +73,7 @@ public class ImportValueTagDialog extends JDialog {
 									Cell cell = row.getCell(cellCount);
 									String cellName = ValueTagHeaders[cellCount];
 									int cellType = cell.getCellType();
-									Object cellValue = null;
+									Object cellValue = "";
 								
 									if(cellType == Cell.CELL_TYPE_NUMERIC || cellType == Cell.CELL_TYPE_FORMULA) {
 										cellValue = cell.getNumericCellValue();

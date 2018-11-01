@@ -38,7 +38,7 @@ public class ImportWayPointDialog extends JDialog {
 		JFileChooser chooser = new JFileChooser();
 		FileNameExtensionFilter filter = new FileNameExtensionFilter("XLSX Files", "xlsx");
 		chooser.setCurrentDirectory(new File("."));
-		chooser.setDialogType(JFileChooser.SAVE_DIALOG);
+		chooser.setDialogType(JFileChooser.OPEN_DIALOG);
         chooser.setFileFilter(filter);
         chooser.addActionListener(new AbstractAction() {
 			@Override

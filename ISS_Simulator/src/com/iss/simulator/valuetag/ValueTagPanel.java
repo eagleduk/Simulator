@@ -61,6 +61,8 @@ public class ValueTagPanel extends JPanel {
 	
 	JButton searchBtn;
 	
+	String[] selectedValues;
+	
 	ButtonAction action = new ButtonAction();
 	
     public ValueTagPanel(JFrame frame) {
