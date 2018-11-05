@@ -53,7 +53,6 @@ public class SimulatorSetting extends JDialog implements  ActionListener{
 	public void setConfig(SimulatorConfig sc) {
 		this.sc = sc;
 		this.engines = sc.getEngineNames();
-		//sc.getEngineLoadSelectedValues();
 	}
 	
 	public void setWayPointPanel(ValueTagPanel valuetagPanel){
@@ -61,7 +60,7 @@ public class SimulatorSetting extends JDialog implements  ActionListener{
 	}
 	
 	public JDialog createDialog() {
-		setSize(engines.size() * 115, 250);
+		setSize(10+(engines.size() * (100+10))+20, 250);
 		setLocation(200, 50);
 		
 		String[] engineLoad = sc.getEngineLoad();
@@ -75,7 +74,7 @@ public class SimulatorSetting extends JDialog implements  ActionListener{
 			String engine = this.engines.get(i);
 			Integer value = sc.getEngineLoadSelectedValue(engine);
 			
-			JPanel content = new JPanel(new FlowLayout(FlowLayout.CENTER,10,0));
+			JPanel content = new JPanel(new FlowLayout(FlowLayout.LEFT,10,0));
 			content.setPreferredSize(new Dimension(100, 150));
 			
 			JList<String> list = new JList<String>(engineLoad);
