@@ -50,11 +50,11 @@ class LoadUpload extends JDialog implements  ActionListener {
 	}
 
 	public JDialog createDialog() {
-		setSize(400, engines.size() * 50 + 50);
+		setSize(400, 10 + (engines.size() * (35+10)) + 30 + 10 + 40);
 		setLocation(400, 150);
 		
 		JPanel content = new JPanel(new FlowLayout(FlowLayout.RIGHT,10,10));
-		content.setPreferredSize(new Dimension(400, engines.size() * 45));
+		content.setPreferredSize(new Dimension(400, (engines.size() * (35+10))));
 		for(String engine: engines) {
 			
 			JPanel eContent = new JPanel(new FlowLayout(FlowLayout.CENTER, 10,5));

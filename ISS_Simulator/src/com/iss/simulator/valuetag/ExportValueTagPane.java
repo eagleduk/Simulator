@@ -25,7 +25,7 @@ public class ExportValueTagPane extends JOptionPane {
 
 	final String[] ValueTagHeaders = {"RedisKey", "Description", "RedisType", "MinValue", "MaxValue", "Value_String", "Value_Boolean"};
 	
-	Component com;
+	Component frame;
 	JTable table;
 	
 	SimulatorConfig sc;
@@ -34,7 +34,7 @@ public class ExportValueTagPane extends JOptionPane {
 	
 	public ExportValueTagPane(Frame frame, String name) {
 		super();
-		this.com = frame;
+		this.frame = frame;
 	}
 	
 	public void setTable(JTable table) {
@@ -91,10 +91,10 @@ public class ExportValueTagPane extends JOptionPane {
 			fos = new FileOutputStream(file);
 			workbook.write(fos);
 			
-			JOptionPane.showMessageDialog(com,"File Export Success"); 
+			JOptionPane.showMessageDialog(frame,"File Export Success"); 
 			
 		} catch(Exception e) {
-			JOptionPane.showMessageDialog(com,"File Export Error!!", "Alert", JOptionPane.WARNING_MESSAGE);      
+			JOptionPane.showMessageDialog(frame,"File Export Error!!", "Alert", JOptionPane.WARNING_MESSAGE);      
 		} finally {
 			if(fos != null)
 				try {
