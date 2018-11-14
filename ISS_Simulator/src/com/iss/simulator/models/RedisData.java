@@ -6,13 +6,13 @@ import java.util.Random;
 public class RedisData {
 
 	String RedisKey;
-	double MinValue;
-	double MaxValue;
+	String MinValue;
+	String MaxValue;
 	String Value_String;
 	String Value_Boolean;
 	String RedisType;
 	
-	public RedisData(String RedisKey, double MaxValue, double MinValue, String Value_String, String Value_Boolean, String RedisType) {
+	public RedisData(String RedisKey, String MaxValue, String MinValue, String Value_String, String Value_Boolean, String RedisType) {
 		this.RedisKey = RedisKey;
 		this.MaxValue = MaxValue;
 		this.MinValue = MinValue;
@@ -35,13 +35,13 @@ public class RedisData {
 	
 	public Object getValue(int randomCount) {
 		Object value = "";
-		if("String".equals(this.RedisType)) {
+		if("STRING".equals(this.RedisType)) {
 			value = this.Value_String;
-		} else if("Boolean".equals(this.RedisType)) {
+		} else if("BOOLEAN".equals(this.RedisType)) {
 			value = this.Value_Boolean;
 		} else {
-			double max = this.MaxValue;
-			double min = this.MinValue;
+			double max = Double.parseDouble(this.MaxValue);
+			double min = Double.parseDouble(this.MinValue);
 			
 			int imax = (int)max;
 			int imin = (int)min;
