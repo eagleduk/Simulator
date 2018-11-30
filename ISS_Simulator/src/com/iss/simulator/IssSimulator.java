@@ -45,7 +45,7 @@ public class IssSimulator extends JPanel {
 	JCheckBox isLocal, use;
 	
 	static Timer timer;
-	static int TimerSec = 2;
+	static Double TimerSec = 0.0;
 	
 	String tempIP;
 
@@ -136,21 +136,22 @@ public class IssSimulator extends JPanel {
 		settingPanel.add(timeOut);
 
 		/* Runtime */
-		label = new JLabel(" Runtime : ");
+		label = new JLabel(" Runtime(ms) : ");
 		settingPanel.add(label);
 		runtime = new JFormattedTextField(TextNumberFormatter.IntegerFormatter());
-		runtime.setPreferredSize(new Dimension(40, 20));
+		runtime.setPreferredSize(new Dimension(60, 20));
 		runtime.setText(sc.getProperty("Redis.Runtime", "2"));
 		runtime.setName("runtime");
 		settingPanel.add(runtime);
 
-		/* Use */
+		/* Use 
 		label = new JLabel(" Use : ");
 		settingPanel.add(label);
 
 		use = new JCheckBox("");
 		settingPanel.add(use);
-
+	 	*/
+		
 		JToggleButton button = new JToggleButton("START");
 		button.addActionListener(new AbstractAction() {
 
@@ -163,13 +164,13 @@ public class IssSimulator extends JPanel {
                 	button.setText(" STOP ");
                 	Map<String, JTable> map = GetValues();
                 	
-                	TimerSec = Integer.parseInt(runtime.getText());
+                	TimerSec = Double.parseDouble(runtime.getText());
                 	
                 	timer = new Timer();
 
                 	SimulatorService service = new SimulatorService(serverIP.getText(), port.getText(), timeOut.getText(), runtime.getText());
                 	service.setTableDatas(map);
-                	timer.schedule(service, new Date(), TimerSec * 1000);
+                	timer.schedule(service, new Date(), (long) (TimerSec * 1));
                 } else {
                 	// Stop Timer
                 	button.setText("START");

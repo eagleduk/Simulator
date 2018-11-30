@@ -63,4 +63,23 @@ public class TextNumberFormatter extends NumberFormatter {
 		return formatter;
 	}
 	
+	public static NumberFormatter DoubleFormatter(int max) {
+		NumberFormatter formatter = null;
+		try {
+			NumberFormat format = DecimalFormat.getInstance();
+			format.setGroupingUsed(false);
+			format.setMinimumFractionDigits(1);
+			format.setMinimumFractionDigits(max);
+			format.setRoundingMode(RoundingMode.DOWN);
+			
+			formatter = new NumberFormatter(format);
+			formatter.setAllowsInvalid(false);
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return formatter;
+	}
+	
 }

@@ -21,9 +21,9 @@ public class SimulatorService extends TimerTask {
 	final String[] PARAMETERS = {"Value", "Timestamp", "Quality"};
 	
 	String ip;
-	int port, timeout, runtime, currentWayPoint, runCount;
+	int port, timeout, currentWayPoint, runCount;
 	
-	double latitudePerSecond, longitudePerSecond;
+	double runtime, latitudePerSecond, longitudePerSecond;
 	
 	WayPointModel wpm;
 	ValueTagModel vtm;
@@ -32,7 +32,7 @@ public class SimulatorService extends TimerTask {
 		this.ip = ip;
 		this.port = Integer.parseInt(port);
 		this.timeout = Integer.parseInt(timeout);
-		this.runtime = Integer.parseInt(runtime);
+		this.runtime = Double.parseDouble(runtime);
 		
 		this.currentWayPoint = 0;
 		this.runCount = 0;
